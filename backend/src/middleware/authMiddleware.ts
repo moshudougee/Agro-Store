@@ -12,7 +12,7 @@ const prisma = new PrismaClient();
 
 // Middleware to verify JWT and attach user to request
 export const authenticate = async (req: AuthRequest, res: Response, next: NextFunction) => {
-  const token = req.cookies.agroStore_token;
+  const token = req.signedCookies.auth_token;
   
   if (!token) {
     res.status(401).json({ error: "Unauthorized" });

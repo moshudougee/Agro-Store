@@ -42,7 +42,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   logout: () => {
     axios.post("/api/auth/logout", {});
-    Cookies.remove("agroStore_token");
+    Cookies.remove("auth_token");
     set({ user: null, isAuthenticated: false, loading: false });
   },
 

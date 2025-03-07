@@ -40,10 +40,11 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
     const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, SECRET_KEY);
 
-    res.cookie("agroStore_token", token, { 
+    res.cookie("auth_token", token, { 
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        signed: true,
         maxAge: 24 * 60 * 60 * 1000 
     })
     res.json({ message: "Login successful", rest});
@@ -55,8 +56,8 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
 export const me = async (req: Request, res: Response): Promise<void> => {
     try {
-        //console.log('Cookie', req.cookies);
-        const token = req.cookies.agroStore_token;
+        //console.log('Cookie', req.signedCookies);
+        const token = req.signedCookies.auth_token; // Get token from signed cookie
         if (!token) {
             res.status(401).json({ error: "Not authenticated" });
             return;
@@ -79,7 +80,7 @@ export const me = async (req: Request, res: Response): Promise<void> => {
 
   export const logout = async (req: Request, res: Response): Promise<void> => {
         try {
-            res.clearCookie("agroStore_token");
+            res.clearCookie("auth_token");
             res.json({ message: "Logged out successfully" });
         } catch (error) {
             console.log(error);
