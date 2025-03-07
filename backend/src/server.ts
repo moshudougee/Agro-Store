@@ -16,10 +16,11 @@ const app = express();
 const prisma = new PrismaClient();
 
 const corsOptions = {
-  origin: 'https://my-agro-store.vercel.app',
+  origin: 'https://my-agro-store.vercel.app', 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
- }
+  credentials: true,
+};
 
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
