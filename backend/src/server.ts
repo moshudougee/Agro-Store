@@ -15,12 +15,15 @@ dotenv.config();
 const app = express();
 const prisma = new PrismaClient();
 
-app.use(cors({
-    credentials: true,
-    origin: process.env.CLIENT_URL,
-    allowedHeaders: ["Content-Type", "Authorization"],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  }));
+const corsOptions = {
+  credentials: true,
+  origin: process.env.CLIENT_URL,
+  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+}
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 
