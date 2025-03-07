@@ -17,7 +17,7 @@ const prisma = new PrismaClient();
 
 app.use(cors({
     credentials: true,
-    origin: 'https://my-agro-store.vercel.app',
+    origin: process.env.CLIENT_URL,
     allowedHeaders: ["Content-Type", "Authorization"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   }));
