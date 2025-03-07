@@ -45,7 +45,8 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         secure: true,
         sameSite: "none",
         maxAge: 24 * 60 * 60 * 1000 
-    }).json({ message: "Login successful", rest});
+    })
+    res.json({ message: "Login successful", rest});
   } catch (error) {
         console.log(error);
         res.status(500).json({ error: "Login failed" });
