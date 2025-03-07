@@ -23,7 +23,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   login: async (email, password) => {
     try {
-        const res = await axios.post("/api/auth/login", { email, password });
+        const res = await axios.post("/api/auth/login", { email, password }, {withCredentials: true});
         set({ user: res.data.rest, isAuthenticated: true, loading: false });
     } catch (err: any) {
         console.log(err);
@@ -33,7 +33,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   registerUser: async (email, password, role) => {
     try {
-        await axios.post("/api/auth/register", { email, password, role });
+        await axios.post("/api/auth/register", { email, password, role }, {withCredentials: true});
     } catch (err: any) {
         console.log(err);
         set({ error: err.response?.data.message || "Registration failed. Please try again.", loading: false });
@@ -48,7 +48,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   checkAuth: async () => {
     try {
-      const res = await axios.get("/api/auth/me");
+      const res = await axios.get("/api/auth/me", {withCredentials: true});
       set({ user: res.data.user, isAuthenticated: true, loading: false });
     } catch {
       set({ user: null, isAuthenticated: false, loading: false });
