@@ -16,14 +16,30 @@ const app = express();
 const prisma = new PrismaClient();
 
 const corsOptions = {
-  origin: 'https://my-agro-store.vercel.app', 
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: process.env.CLIENT_URL, 
   credentials: true,
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+//app.options("*", cors(corsOptions));
+const allowCors = (req: any, res: any, next: any) => {
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL); 
+  res.header("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization"
+  );
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200); // Respond to preflight requests
+  }
+
+  next();
+};
+
+// Apply CORS middleware
+app.use(allowCors);
 app.use(cookieParser());
 app.use(express.json());
 
