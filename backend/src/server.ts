@@ -15,16 +15,11 @@ dotenv.config();
 const app = express();
 const prisma = new PrismaClient();
 
-const corsOptions = {
-  origin: process.env.CLIENT_URL, 
-  credentials: true,
-};
 
-app.use(cors(corsOptions));
 //app.options("*", cors(corsOptions));
 const allowCors = (req: any, res: any, next: any) => {
   res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL); 
+  res.header("Access-Control-Allow-Origin", 'https://my-agro-store.vercel.app'); 
   res.header("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
   res.header(
     "Access-Control-Allow-Headers",
@@ -40,6 +35,14 @@ const allowCors = (req: any, res: any, next: any) => {
 
 // Apply CORS middleware
 app.use(allowCors);
+const corsOptions = {
+  origin: 'https://my-agro-store.vercel.app', 
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 
