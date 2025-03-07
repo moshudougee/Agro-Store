@@ -43,7 +43,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     res.cookie("agroStore_token", token, { 
         httpOnly: true,
         secure: true,
-        sameSite: process.env.NODE_ENV === "development" ? "none" : "strict",
+        sameSite: "none",
         maxAge: 24 * 60 * 60 * 1000 
     }).json({ message: "Login successful", rest});
   } catch (error) {
