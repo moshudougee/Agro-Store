@@ -16,7 +16,6 @@ const app = express();
 const prisma = new PrismaClient();
 
 app.use(cors({
-    credentials: true,
     origin: 'https://my-agro-store.vercel.app'
   }));
 app.use(cookieParser());
