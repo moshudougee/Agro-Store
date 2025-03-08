@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { LuFilePen, LuLoader } from "react-icons/lu";
 import { useNavigate } from "react-router";
 import FormInput from "./FormInput";
+import { useAuthStore } from "../store/auth";
 
 interface EditDetailsProps {
     details: FarmerDetails;
@@ -16,9 +17,11 @@ type Inputs = {
     city: string;
 }
 const EditDetails = ({ details }: EditDetailsProps) => {
+    const { user } = useAuthStore()
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
+    const userId = user!.id
 
     const { 
          register,
@@ -45,7 +48,7 @@ const EditDetails = ({ details }: EditDetailsProps) => {
         try {
             setIsLoading(true)
             const { name, phone, address, city } = form
-            const response = await axios.put('/api/details/updateDetails', { name, phone, address, city })
+            const response = await axios.put('/api/details/updateDetails', { name, phone, address, city, userId })
             if (response.status === 200) {
                 setError(null)
                 navigate('/contacts')

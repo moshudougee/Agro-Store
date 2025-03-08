@@ -5,10 +5,10 @@ import { addDetails, deleteDetails, getDetails, getDetailsById, updateDetails } 
 
 const router = express.Router();
 
-router.post('/add', authenticate, addDetails);
-router.get('/getDetails', authenticate, getDetails);
-router.get('/getDetailsById/:detailsId', authenticate, authenticateAdmin, getDetailsById);
-router.put('/updateDetails', authenticate, updateDetails);
-router.delete('/deleteDetails', authenticate, deleteDetails);
+router.post('/add', addDetails);
+router.get('/getDetails/:userId', getDetails);
+router.get('/getDetailsById/:detailsId', getDetailsById);
+router.put('/updateDetails',  updateDetails);
+router.delete('/deleteDetails/:userId',  deleteDetails);
 
 export default router;

@@ -5,10 +5,10 @@ import { authenticate, authenticateAdmin } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
-router.post('/create', authenticate, authenticateAdmin, createFertilizer);
-router.get('/getFertilizers', authenticate, getAllFertilizers);
-router.get('/getFertilizer/:fertilizerId', authenticate, getFertilizerById);
-router.put('/updateFertilizer/:fertilizerId', authenticate, authenticateAdmin, updateFertilizer);
-router.delete('/deleteFertilizer/:fertilizerId', authenticate, authenticateAdmin, deleteFertilizer);
+router.post('/create',  createFertilizer);
+router.get('/getFertilizers',  getAllFertilizers);
+router.get('/getFertilizer/:fertilizerId',  getFertilizerById);
+router.put('/updateFertilizer/:fertilizerId',  updateFertilizer);
+router.delete('/deleteFertilizer/:fertilizerId',  deleteFertilizer);
 
 export default router;

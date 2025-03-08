@@ -5,8 +5,8 @@ const prisma = new PrismaClient();
 
 export const addDetails = async (req: Request, res: Response) => {
     try {
-        const { name, phone, address, city } = req.body;
-        const userId = (req as any).user.id;
+        const { name, phone, address, city, userId } = req.body;
+         
         const details = await prisma.farmerDetails.create({
             data: {
                 name,
@@ -25,8 +25,8 @@ export const addDetails = async (req: Request, res: Response) => {
 
 export const getDetails = async (req: Request, res: Response) => {
     try {
-        const userId = (req as any).user.id;
-        const details = await prisma.farmerDetails.findFirst({
+        const{ userId }= req.params;
+        const details = await prisma.farmerDetails.findUnique({
             where: { farmerId: userId }
         });
         //console.log(details)
@@ -61,8 +61,7 @@ export const getDetailsById = async (req: Request, res: Response) => {
 
 export const updateDetails = async (req: Request, res: Response) => {
     try {
-        const { name, phone, address, city } = req.body;
-        const userId = (req as any).user.id;
+        const { name, phone, address, city, userId } = req.body;
         const updatedDetails = await prisma.farmerDetails.update({
             where: { farmerId: userId },
             data: {
@@ -85,7 +84,7 @@ export const updateDetails = async (req: Request, res: Response) => {
 
 export const deleteDetails = async (req: Request, res: Response) => {
     try {
-        const userId = (req as any).user.id;
+        const{ userId }= req.params;
         const deletedDetails = await prisma.farmerDetails.delete({
             where: { farmerId: userId }
         });

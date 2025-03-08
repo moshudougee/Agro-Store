@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { LuCopyPlus, LuLoader } from "react-icons/lu";
 import { useNavigate } from "react-router";
 import FormInput from "./FormInput";
+import { useAuthStore } from "../store/auth";
 
 
 type Inputs = {
@@ -13,9 +14,11 @@ type Inputs = {
     city: string;
 }
 const AddDetails = () => {
+    const { user } = useAuthStore()
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
+    const userId = user!.id
 
     const { 
          register,
@@ -34,7 +37,7 @@ const AddDetails = () => {
         try {
             setIsLoading(true)
             const { name, phone, address, city } = form
-            const response = await axios.post('/api/details/add', { name, phone, address, city })
+            const response = await axios.post('/api/details/add', { name, phone, address, city, userId })
             if (response.status === 201) {
                 setError(null)
                 navigate('/contacts')

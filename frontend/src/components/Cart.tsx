@@ -7,14 +7,17 @@ import { LuLoader } from "react-icons/lu"
 import { useNavigate } from "react-router"
 import axios from "axios"
 import toast from "react-hot-toast"
+import { useAuthStore } from "../store/auth"
 
 const Cart = () => {
+    const { user } = useAuthStore()
     const { totalAmt, orderUnits, count, clearOrder } = useOrderStore()
     const { details, loading, error } = useDetails()
     const [currentPage, setCurrentPage] = useState(1)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isError, setIsError] = useState<string | null>(null)
     const navigate = useNavigate()
+    const userId = user!.id
 
     const handleContact = () => {
         navigate('/contacts/edit')
@@ -24,7 +27,7 @@ const Cart = () => {
         try {
             setIsLoading(true)
             const paid = true
-            const response = await axios.post('api/orders/create', { totalAmt, orderUnits, paid })
+            const response = await axios.post('api/orders/create', { totalAmt, orderUnits, paid, userId })
             if (response.status === 201) {
                 toast.success('Order sent')
                 setIsError(null)

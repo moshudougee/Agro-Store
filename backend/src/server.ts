@@ -17,7 +17,6 @@ const prisma = new PrismaClient();
 
 const corsOptions = {
   origin: process.env.NODE_ENV === 'development' ? 'http://localhost:5173' : 'https://my-agro-store.vercel.app',
-  credentials: true,
 };
 
 // Middleware

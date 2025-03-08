@@ -5,11 +5,9 @@ const prisma = new PrismaClient();
 
 export const placeOrder = async (req: Request, res: Response) => {
   try {
-    const { orderUnits, totalAmt, paid } = req.body;
+    const { orderUnits, totalAmt, paid, userId } = req.body;
 
-    const userId = (req as any).user.id;
-    
-
+    //const userId = (req as any).user.id;
     const order = await prisma.order.create({
       data: {
         farmerId: userId,
@@ -60,7 +58,7 @@ export const getOrderById = async (req: Request, res: Response) => {
 
 export const getMyOrders = async (req: Request, res: Response) => {
   try {
-    const userId = (req as any).user.id;
+    const { userId } = req.params;
     const orders = await prisma.order.findMany({
       where: { farmerId: userId },
       include: {
