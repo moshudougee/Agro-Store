@@ -15,14 +15,18 @@ dotenv.config();
 const app = express();
 const prisma = new PrismaClient();
 
+ 
 const corsOptions = {
+  credentials: false, 
   origin: process.env.NODE_ENV === 'development' ? 'http://localhost:5173' : 'https://my-agro-store.vercel.app',
 };
+
+console.log(corsOptions);
 
 // Middleware
 app.use(cors(corsOptions));
 
-app.use(cookieParser(process.env.COOKIE_SECRET));
+//app.use(cookieParser(process.env.COOKIE_SECRET));
 
 app.use(express.json());
 
