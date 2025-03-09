@@ -2,7 +2,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-interface AuthState {
+export interface AuthState {
   user: { id: string; email: string; role: string } | null;
   isAuthenticated: boolean;
   error: string | null;

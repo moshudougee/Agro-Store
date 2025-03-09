@@ -97,7 +97,7 @@ export const HomeComp = () => {
 
     if (loading) {
       return (
-        <div className="loading-spinner">
+        <div className="loading-spinner" data-testId="loading-spinner">
           <LuLoader className="animate-spin" size={50} />
         </div>
       )

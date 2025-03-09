@@ -1,9 +1,12 @@
 export default {
     preset: 'ts-jest',
     testEnvironment: 'node',
-    testMatch: ['**/*.test.ts'], // Look for test files ending with .test.ts
-    moduleFileExtensions: ['ts', 'js'], // Support TypeScript and JavaScript
+    testMatch: ['**/*.test.ts'], 
+    moduleFileExtensions: ['ts', 'js'],
     transform: {
-      '^.+\\.ts$': 'ts-jest', // Transform TypeScript files with ts-jest
+      '^.+\\.ts$': 'ts-jest',
     },
+    coverageDirectory: '<rootDir>/coverage',
+    collectCoverageFrom: ['src/**/*.ts'],
+    coveragePathIgnorePatterns: ['/node_modules/', '/tests/'],
   };

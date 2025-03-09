@@ -31,9 +31,9 @@ const FormInput = <T extends FieldValues,>({
   return (
     <div className="flex flex-col gap-1">
         <div className='form-item'>
-            <div className='flex w-full md:w-1/5'>
-                <span className=''>{name}</span>
-            </div>
+            <label htmlFor={id as string} className='flex w-full md:w-1/5'>
+                {name}
+            </label>
             <div className="flex w-full md:w-4/5">
                 <input
                     type={type}

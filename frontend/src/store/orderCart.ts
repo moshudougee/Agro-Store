@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface OrderState {
+export interface OrderState {
     orderUnits: OrderUnit[];
     totalAmt: number;
     count: number;

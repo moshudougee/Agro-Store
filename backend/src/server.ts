@@ -8,7 +8,6 @@ import orderRoutes from "./routes/orderRoutes";
 import fertilizerRoutes from "./routes/fertilizerRoutes";
 import seedsRoutes from "./routes/seedsRoutes";
 import detailsRoutes from "./routes/detailsRoutes";
-import cookieParser from "cookie-parser";
 
 
 dotenv.config();
@@ -48,5 +47,9 @@ app.use("/api/details", detailsRoutes);
 
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+if (process.env.NODE_ENV !== "test") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+
+export default app
